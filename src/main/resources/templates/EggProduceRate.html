@@ -6,7 +6,7 @@
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>
-        海兰褐喂食统计表
+        海兰褐产蛋统计表
     </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
@@ -45,7 +45,7 @@
                         <p>疫苗</p>
                     </a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" th:href="@{/DisplayedDayFeed}">
                         <p>日喂食</p>
                     </a>
@@ -55,8 +55,7 @@
                         <p>总喂食量</p>
                     </a>
                 </li>
-
-                <li class="nav-item ">
+                <li class="nav-item active">
                     <a class="nav-link" th:href="@{/EggProduceRate}">
                         <p>产蛋率</p>
                     </a>
@@ -68,7 +67,6 @@
                     </a>
                 </li>
             </ul>
-            </ul>
         </div>
     </div>
     <div class="main-panel">
@@ -76,7 +74,7 @@
         <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
             <div class="container-fluid">
                 <div class="navbar-wrapper">
-                    <a class="navbar-brand" href="#pablo">日喂食</a>
+                    <a class="navbar-brand" href="#pablo">鸡蛋生产率</a>
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="sr-only">Toggle navigation</span>
@@ -85,7 +83,7 @@
                     <span class="navbar-toggler-icon icon-bar"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-end">
-                    <form class="navbar-form" th:action="@{/searchSeaBlueProductByFeed}" th:object="${seaBlueProduct}" method="post">
+                    <form class="navbar-form" th:action="@{/searchSeaBlueProductByEggProduceRate}" th:object="${seaBlueProduct}" method="post">
                         <div class="input-group no-border">
                             <input type="text" th:field="*{date}" class="form-control" placeholder="Search...">
                             <button type="submit" class="btn btn-white btn-round btn-just-icon">
@@ -104,31 +102,31 @@
                     <div class="col-lg-9 col-md-12">
                         <div class="card">
                             <div class="card-header card-header-warning">
-                                <h4 class="card-title">日喂食量统计图</h4>
+                                <h4 class="card-title">鸡蛋生产率统计图</h4>
                             </div>
-                            <div id="number" style="max-width:100%; height: 700px"></div>
+                            <div id="main" style="max-width:100%; height: 700px"></div>
                             <script type="text/javascript" th:inline="javascript">
-                                var myChart = echarts.init(document.getElementById('number'));
+                                var myChart = echarts.init(document.getElementById('main'));
 
                                 var dateList = [[${dateList}]]
-                                var numberList= [[${feedList}]]
+                                var displayList= [[${displayList}]]
                                 // 指定图表的配置项和数据
                                 var option = {
                                     title: {
-                                        text: '日喂食量(g/只/日)'
+                                        text: '鸡蛋生产率统计图（百分比）'
                                     },
                                     tooltip: {},
                                     legend: {
-                                        data:['数量']
+                                        data:['生产率']
                                     },
                                     xAxis: {
                                         data: dateList
                                     },
                                     yAxis: {},
                                     series: [{
-                                        name: '数量',
+                                        name: '生产率',
                                         type: 'bar',
-                                        data: numberList
+                                        data: displayList
                                     }]
                                 };
 

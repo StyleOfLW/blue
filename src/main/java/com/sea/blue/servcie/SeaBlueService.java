@@ -22,8 +22,6 @@ public class SeaBlueService
 
     public List<String> getAllDateList()
     {
-//        List<String> dateList =seaBlueDao.findByDate();
-//        return dateList;
         Iterable<SeaBlueProduct> all = seaBlueDao.findAll();
         List<String> dateList = new LinkedList<>();
         for (SeaBlueProduct seaBlueProduct : all)
@@ -47,5 +45,53 @@ public class SeaBlueService
     public SeaBlueProduct findByDate(String date)
     {
         return Optional.ofNullable(seaBlueDao.findByDate(date)).orElse(new SeaBlueProduct());
+    }
+
+    public List<String> getAllFeedList() {
+        Iterable<SeaBlueProduct> all = seaBlueDao.findAll();
+        List<String> dateList = new LinkedList<>();
+        for (SeaBlueProduct seaBlueProduct : all)
+        {
+            dateList.add(seaBlueProduct.getDayFeedStand());
+        }
+        return dateList;
+    }
+
+    public List<String> getAllFeedTotalList() {
+        Iterable<SeaBlueProduct> all = seaBlueDao.findAll();
+        List<String> dateList = new LinkedList<>();
+        for (SeaBlueProduct seaBlueProduct : all)
+        {
+            dateList.add(seaBlueProduct.getTotalDayFeed());
+        }
+        return dateList;
+    }
+
+    public List<String> getAllEggProduceRate() {
+        Iterable<SeaBlueProduct> all = seaBlueDao.findAll();
+        List<String> dateList = new LinkedList<>();
+        for (SeaBlueProduct seaBlueProduct : all)
+        {
+            dateList.add(seaBlueProduct.getEggProduceRate());
+        }
+        return dateList;
+    }
+
+    public List<String> getAllWeekOutNumberList() {
+        Iterable<SeaBlueProduct> all = seaBlueDao.findAll();
+        List<String> dateList = new LinkedList<>();
+        for (SeaBlueProduct seaBlueProduct : all)
+        {
+            dateList.add(seaBlueProduct.getTotalWeekOutNumber());
+        }
+        return dateList;
+    }
+
+    public SeaBlueProduct findByDayAge(String dayAge) {
+        return seaBlueDao.findByDayAge(dayAge);
+    }
+
+    public void saveSeaBlueProduct(SeaBlueProduct seaBlueProduct) {
+        seaBlueDao.save(seaBlueProduct);
     }
 }

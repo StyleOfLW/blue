@@ -6,7 +6,7 @@
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>
-        海兰褐喂食统计表
+        疫苗统计表
     </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
@@ -46,28 +46,31 @@
                     </a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" th:href="@{/DisplayedDayFeed}">
-                        <p>日喂食</p>
+                    <a class="nav-link" th:href="@{/displayedTotalVaccinePrice}">
+                        <p>疫苗总价格</p>
                     </a>
                 </li>
-                <li class="nav-item ">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/DisplayedDayFeed}">
+                        <p>日喂食标准</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" th:href="@{/DisplayedDayFeedTotal}">
                         <p>总喂食量</p>
                     </a>
                 </li>
-
                 <li class="nav-item ">
                     <a class="nav-link" th:href="@{/EggProduceRate}">
                         <p>产蛋率</p>
                     </a>
                 </li>
                 <li>
-                <li class="nav-item ">
+                <li class="nav-item">
                     <a class="nav-link" th:href="@{/WeekOutNumber}">
                         <p>淘汰数</p>
                     </a>
                 </li>
-            </ul>
             </ul>
         </div>
     </div>
@@ -76,7 +79,7 @@
         <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
             <div class="container-fluid">
                 <div class="navbar-wrapper">
-                    <a class="navbar-brand" href="#pablo">日喂食</a>
+                    <a class="navbar-brand" href="#pablo">疫苗总价</a>
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="sr-only">Toggle navigation</span>
@@ -85,9 +88,9 @@
                     <span class="navbar-toggler-icon icon-bar"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-end">
-                    <form class="navbar-form" th:action="@{/searchSeaBlueProductByFeed}" th:object="${seaBlueProduct}" method="post">
+                    <form class="navbar-form" th:action="@{/searchVaccineByStep}" th:object="${vaccine}" method="post">
                         <div class="input-group no-border">
-                            <input type="text" th:field="*{date}" class="form-control" placeholder="Search...">
+                            <input type="text" th:field="*{procedureNumber}" class="form-control" placeholder="Search...">
                             <button type="submit" class="btn btn-white btn-round btn-just-icon">
                                 <i class="material-icons">search</i>
                                 <div class="ripple-container"></div>
@@ -104,31 +107,31 @@
                     <div class="col-lg-9 col-md-12">
                         <div class="card">
                             <div class="card-header card-header-warning">
-                                <h4 class="card-title">日喂食量统计图</h4>
+                                <h4 class="card-title">疫苗总价统计表</h4>
                             </div>
-                            <div id="number" style="max-width:100%; height: 700px"></div>
+                            <div id="main" style="max-width:100%; height: 700px"></div>
                             <script type="text/javascript" th:inline="javascript">
-                                var myChart = echarts.init(document.getElementById('number'));
+                                var myChart = echarts.init(document.getElementById('main'));
 
                                 var dateList = [[${dateList}]]
-                                var numberList= [[${feedList}]]
+                                var displayList= [[${displayList}]]
                                 // 指定图表的配置项和数据
                                 var option = {
                                     title: {
-                                        text: '日喂食量(g/只/日)'
+                                        text: '疫苗总价统计表（元)）'
                                     },
                                     tooltip: {},
                                     legend: {
-                                        data:['数量']
+                                        data:['疫苗总价']
                                     },
                                     xAxis: {
                                         data: dateList
                                     },
                                     yAxis: {},
                                     series: [{
-                                        name: '数量',
+                                        name: '疫苗总价',
                                         type: 'bar',
-                                        data: numberList
+                                        data: displayList
                                     }]
                                 };
 
@@ -140,57 +143,49 @@
 
                     <div class="col-lg-3 col-md-12">
                         <div class="card">
-                            <form th:action="@{/saveSeaBlue}" th:object="${seaBlueProduct}" method="post">
+                            <form th:action="@{/saveSeaBlue}" th:object="${vaccine}" method="post">
                                 <div class="card-header card-header-warning">
-                                    <h4 class="card-title">海兰褐 <span th:text="${seaBlueProduct.date}"></span> 详情</h4>
+                                    <h4 class="card-title">疫苗详情</h4>
                                 </div>
                                 <div class="form-group">
-                                    <label >阶段</label>
-                                    <input type="text" th:field="*{stage}" class="form-control"  >
-                                </div>
-                                <div class="form-group">
-                                    <label >周龄</label>
-                                    <input type="text" th:field="*{weekAge}" class="form-control"  >
+                                    <label >序号</label>
+                                    <input type="text" th:field="*{procedureNumber}" class="form-control"  >
                                 </div>
                                 <div class="form-group">
                                     <label >日龄</label>
                                     <input type="text" th:field="*{dayAge}" class="form-control"  >
                                 </div>
                                 <div class="form-group">
-                                    <label >数量</label>
-                                    <input type="text" th:field="*{herds}" class="form-control"  >
+                                    <label >类型</label>
+                                    <input type="text" th:field="*{type}" class="form-control"  >
                                 </div>
                                 <div class="form-group">
-                                    <label >淘汰率</label>
-                                    <input type="text" th:field="*{weekOutRate}" class="form-control"  >
+                                    <label >详情</label>
+                                    <input type="text" th:field="*{detail}" class="form-control"  >
                                 </div>
                                 <div class="form-group">
-                                    <label >总淘汰数</label>
-                                    <input type="text" th:field="*{totalWeekOutNumber}" class="form-control"  >
+                                    <label >植株</label>
+                                    <input type="text" th:field="*{seedingPlants}" class="form-control"  >
                                 </div>
                                 <div class="form-group">
-                                    <label >日喂食标准(g/只/日)</label>
-                                    <input type="text" th:field="*{dayFeedStand}" class="form-control"  >
+                                    <label >L/K</label>
+                                    <input type="text" th:field="*{LorK}" class="form-control"  >
                                 </div>
                                 <div class="form-group">
-                                    <label >日采食量(kg)</label>
-                                    <input type="text" th:field="*{totalDayFeed}" class="form-control"  >
+                                    <label >dosage</label>
+                                    <input type="text" th:field="*{dosage}" class="form-control"  >
                                 </div>
                                 <div class="form-group">
-                                    <label >体重(g/只)</label>
-                                    <input type="text" th:field="*{weight}" class="form-control"  >
+                                    <label >使用方法</label>
+                                    <input type="text" th:field="*{useMethod}" class="form-control"  >
                                 </div>
                                 <div class="form-group">
-                                    <label >鸡蛋生产率</label>
-                                    <input type="text" th:field="*{eggProduceRate}" class="form-control"  >
+                                    <label >其它</label>
+                                    <input type="text" th:field="*{other}" class="form-control"  >
                                 </div>
                                 <div class="form-group">
-                                    <label >鸡蛋生产数量</label>
-                                    <input type="text" th:field="*{eggProduceNumber}" class="form-control"  >
-                                </div>
-                                <div class="form-group">
-                                    <label >鸡蛋重量(g/枚)</label>
-                                    <input type="text" th:field="*{eggWeight}" class="form-control" >
+                                    <label >价格</label>
+                                    <input type="text" th:field="*{price}" class="form-control"  >
                                 </div>
                                 <button type="submit" style="text-align:center" class="btn btn-primary">[[${seaBlueProduct.id == 0 ? '新增':'保存修改'}]]</button>
                             </form>

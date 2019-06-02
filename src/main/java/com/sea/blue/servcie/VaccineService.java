@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VaccineService
@@ -16,5 +17,9 @@ public class VaccineService
     public List<Vaccine> getAllVaccineList()
     {
         return (List<Vaccine>) vaccineRepo.findAll();
+    }
+
+    public Vaccine findByStep(String procedureNumber) {
+        return Optional.ofNullable(vaccineRepo.findByStep(procedureNumber)).orElse(new Vaccine());
     }
 }

@@ -10,4 +10,7 @@ public interface SeaBlueProductRepo extends CrudRepository<SeaBlueProduct,Long>
 {
     @Query("select e from SeaBlueProduct e where e.date = ?1")
     SeaBlueProduct findByDate(String date);
+
+    @Query("select e from SeaBlueProduct e where e.dayAge = ?1")
+    SeaBlueProduct findByDayAge(String dayAge);
 }
