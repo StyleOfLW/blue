@@ -143,9 +143,10 @@
 
                     <div class="col-lg-3 col-md-12">
                         <div class="card">
-                            <form th:action="@{/saveSeaBlue}" th:object="${vaccine}" method="post">
+                            <form th:action="@{/saveVaccinePrince}" th:object="${vaccine}" method="post">
                                 <div class="card-header card-header-warning">
                                     <h4 class="card-title">疫苗详情</h4>
+                                    <input type="hidden" th:field="*{id}"/>
                                 </div>
                                 <div class="form-group">
                                     <label >序号</label>
@@ -172,7 +173,7 @@
                                     <input type="text" th:field="*{LorK}" class="form-control"  >
                                 </div>
                                 <div class="form-group">
-                                    <label >dosage</label>
+                                    <label >用量</label>
                                     <input type="text" th:field="*{dosage}" class="form-control"  >
                                 </div>
                                 <div class="form-group">
@@ -187,7 +188,7 @@
                                     <label >价格</label>
                                     <input type="text" th:field="*{price}" class="form-control"  >
                                 </div>
-                                <button type="submit" style="text-align:center" class="btn btn-primary">[[${seaBlueProduct.id == 0 ? '新增':'保存修改'}]]</button>
+                                <button type="submit" style="text-align:center" class="btn btn-primary">[[${vaccine.id == 0 ? '新增':'保存修改'}]]</button>
                             </form>
                         </div>
                     </div>

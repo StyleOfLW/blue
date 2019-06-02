@@ -22,4 +22,12 @@ public class VaccineService
     public Vaccine findByStep(String procedureNumber) {
         return Optional.ofNullable(vaccineRepo.findByStep(procedureNumber)).orElse(new Vaccine());
     }
+
+    public void saveVaccine(Vaccine vaccine) {
+        vaccineRepo.save(vaccine);
+    }
+
+    public Vaccine findByID(long id) {
+        return Optional.ofNullable(vaccineRepo.findById((int)id).get()).orElse(new Vaccine());
+    }
 }

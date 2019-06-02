@@ -31,7 +31,7 @@ public class SeaBlueController
     public String home(HttpServletRequest request, HttpServletResponse resp ,Model model)
     {
         StringBuffer pathInfo = request.getRequestURL();
-        model.addAttribute("seaBlueUrl", pathInfo);  //todo: request path
+        model.addAttribute("seaBlueUrl", pathInfo);
         return "home";
     }
 
@@ -198,7 +198,7 @@ public class SeaBlueController
     public String displayedTotalVaccinePrice(Model model) {
         List<Vaccine> vaccineList = displayVaccineTotalPrice(model);
 
-        model.addAttribute("vaccine", vaccineList.get(0));
+        model.addAttribute("vaccine", vaccineList.get(vaccineList.size()-1));
 
         return "vaccinePrice";
     }
@@ -210,6 +210,16 @@ public class SeaBlueController
         displayVaccineTotalPrice(model);
         return  "vaccinePrice";
     }
+
+    @RequestMapping(value = "/saveVaccinePrince", method = RequestMethod.POST)
+    public String saveVaccinePrince(@ModelAttribute Vaccine vaccine, Model model) {
+        vaccineService.saveVaccine(vaccine);
+
+        model.addAttribute("vaccine",vaccineService.findByStep(vaccine.getProcedureNumber()));
+        displayVaccineTotalPrice(model);
+        return "vaccinePrice";
+    }
+
 
     private List<Vaccine> displayVaccineTotalPrice(Model model) {
         //get all type of vaccine
