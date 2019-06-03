@@ -20,7 +20,10 @@ public class VaccineService
     }
 
     public Vaccine findByStep(String procedureNumber) {
-        return Optional.ofNullable(vaccineRepo.findByStep(procedureNumber)).orElse(new Vaccine());
+        List<Vaccine> vaccineList = vaccineRepo.findByStep(procedureNumber);
+        if(vaccineList == null || vaccineList.size() == 0)
+            return new Vaccine();
+        return vaccineList.get(0);
     }
 
     public void saveVaccine(Vaccine vaccine) {
@@ -29,5 +32,9 @@ public class VaccineService
 
     public Vaccine findByID(long id) {
         return Optional.ofNullable(vaccineRepo.findById((int)id).get()).orElse(new Vaccine());
+    }
+
+    public void deleteVaccine(Vaccine vaccine) {
+        vaccineRepo.delete(vaccine);
     }
 }

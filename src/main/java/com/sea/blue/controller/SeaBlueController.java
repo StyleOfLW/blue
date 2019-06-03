@@ -143,6 +143,18 @@ public class SeaBlueController
         return  "dayFeedTotal";
     }
 
+    @RequestMapping(value = "/saveSeaBlueProductByTotalFeed" , method= RequestMethod.POST)
+    public String saveSeaBlueProductByTotalFeed(@ModelAttribute(value="seaBlueDate")SeaBlueProduct seaBlueProduct, Model model)
+    {
+        saveSeaBlueProduct(seaBlueProduct);
+        model.addAttribute("feedList", seaBlueService.getAllFeedList());
+
+        addAllDate(model);
+        searchSeaBlueByDate(seaBlueProduct, model);
+
+        return  "dayFeedTotal";
+    }
+
     /**
      * Egg Produce
      */
@@ -164,7 +176,19 @@ public class SeaBlueController
         addAllDate(model);
         searchSeaBlueByDate(seaBlueProduct, model);
 
-        return  "dayFeedTotal";
+        return  "EggProduceRate";
+    }
+
+    @RequestMapping(value = "/saveSeaBlueProductByEggProduceRate" , method= RequestMethod.POST)
+    public String saveSeaBlueProductByEggProduceRate(@ModelAttribute(value="seaBlueDate")SeaBlueProduct seaBlueProduct, Model model)
+    {
+        saveSeaBlueProduct(seaBlueProduct);
+        model.addAttribute("displayList", seaBlueService.getAllFeedList());
+
+        addAllDate(model);
+        searchSeaBlueByDate(seaBlueProduct, model);
+
+        return  "EggProduceRate";
     }
 
     /**
@@ -184,6 +208,18 @@ public class SeaBlueController
     public String searchSeaBlueProductByWeekOutNumber(@ModelAttribute(value="seaBlueDate")SeaBlueProduct seaBlueProduct, Model model)
     {
         model.addAttribute("displayList", seaBlueService.getAllEggProduceRate());
+
+        addAllDate(model);
+        searchSeaBlueByDate(seaBlueProduct, model);
+
+        return  "weekOutNumber";
+    }
+
+    @RequestMapping(value = "/saveSeaBlueProductByWeekOutNumber" , method= RequestMethod.POST)
+    public String saveSeaBlueProductByWeekOutNumber(@ModelAttribute(value="seaBlueDate")SeaBlueProduct seaBlueProduct, Model model)
+    {
+        saveSeaBlueProduct(seaBlueProduct);
+        model.addAttribute("displayList", seaBlueService.getAllFeedList());
 
         addAllDate(model);
         searchSeaBlueByDate(seaBlueProduct, model);
@@ -214,6 +250,15 @@ public class SeaBlueController
     @RequestMapping(value = "/saveVaccinePrince", method = RequestMethod.POST)
     public String saveVaccinePrince(@ModelAttribute Vaccine vaccine, Model model) {
         vaccineService.saveVaccine(vaccine);
+
+        model.addAttribute("vaccine",vaccineService.findByStep(vaccine.getProcedureNumber()));
+        displayVaccineTotalPrice(model);
+        return "vaccinePrice";
+    }
+
+    @RequestMapping(value = "/deleteVaccine", method = RequestMethod.POST)
+    public String deleteVaccine(@ModelAttribute Vaccine vaccine, Model model) {
+        vaccineService.deleteVaccine(vaccine);
 
         model.addAttribute("vaccine",vaccineService.findByStep(vaccine.getProcedureNumber()));
         displayVaccineTotalPrice(model);

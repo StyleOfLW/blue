@@ -5,9 +5,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface VaccineRepo extends CrudRepository<Vaccine,Integer>
 {
     @Query("select e from Vaccine e where e.procedureNumber = ?1")
-    Vaccine findByStep(String procedureNumber);
+    List<Vaccine> findByStep(String procedureNumber);
 }

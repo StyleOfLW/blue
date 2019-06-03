@@ -41,16 +41,6 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/showSubmitForm}">
-                        <p>疫苗</p>
-                    </a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" th:href="@{/displayedTotalVaccinePrice}">
-                        <p>疫苗总价格</p>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" th:href="@{/DisplayedDayFeed}">
                         <p>日喂食标准</p>
                     </a>
@@ -69,6 +59,16 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/WeekOutNumber}">
                         <p>淘汰数</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/showSubmitForm}">
+                        <p>疫苗</p>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/displayedTotalVaccinePrice}">
+                        <p>疫苗总价格</p>
                     </a>
                 </li>
             </ul>
@@ -113,8 +113,8 @@
                             <script type="text/javascript" th:inline="javascript">
                                 var myChart = echarts.init(document.getElementById('main'));
 
-                                var dateList = [[${dateList}]]
-                                var displayList= [[${displayList}]]
+                                var dateList = [[${typeList}]]
+                                var displayList= [[${totalPriceList}]]
                                 // 指定图表的配置项和数据
                                 var option = {
                                     title: {
@@ -188,7 +188,7 @@
                                     <label >价格</label>
                                     <input type="text" th:field="*{price}" class="form-control"  >
                                 </div>
-                                <button type="submit" style="text-align:center" class="btn btn-primary">[[${vaccine.id == 0 ? '新增':'保存修改'}]]</button>
+                                <button type="submit" class="btn btn-primary">[[${vaccine.id == 0 ? '新增':'保存修改'}]]</button>
                             </form>
                         </div>
                     </div>

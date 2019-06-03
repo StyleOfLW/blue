@@ -44,7 +44,10 @@ public class SeaBlueService
 
     public SeaBlueProduct findByDate(String date)
     {
-        return Optional.ofNullable(seaBlueDao.findByDate(date)).orElse(new SeaBlueProduct());
+        List<SeaBlueProduct> seaBlueProductList = seaBlueDao.findByDate(date);
+        if(seaBlueProductList == null || seaBlueProductList.size() == 0)
+            return new SeaBlueProduct();
+        return seaBlueProductList.get(0);
     }
 
     public List<String> getAllFeedList() {
@@ -88,7 +91,10 @@ public class SeaBlueService
     }
 
     public SeaBlueProduct findByDayAge(String dayAge) {
-        return seaBlueDao.findByDayAge(dayAge);
+        List<SeaBlueProduct> seaBlueProductList = seaBlueDao.findByDayAge(dayAge);
+        if(seaBlueProductList == null || seaBlueProductList.size() == 0)
+            return new SeaBlueProduct();
+        return seaBlueProductList.get(0);
     }
 
     public void saveSeaBlueProduct(SeaBlueProduct seaBlueProduct) {
